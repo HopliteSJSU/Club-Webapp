@@ -1,0 +1,20 @@
+#calendar
+  // background: linear-gradient(to right,rgba(255,138,0,0.5),rgba(218,27,96,0.5)), url("http://sjsuhoplite.org:8080/images/sjsu-tower.jpg")
+  // background-size: cover
+  // background-attachment: fixed
+  min-height: 700px !important
+  display: inline-flex !important
+  justify-content: center !important
+  flex-direction: column !important
+  width: 100% !important
+  .is-flex
+    height: 100%
+    width: 100% !important
+    justify-content: center !important
+    &.mobile
+      min-height: 40vh
+      flex-direction: column
+    &.desktop
+      min-height: 70vh
+    iframe
+      box-shadow: 0px 2px 4px rgba(0,0,0,0.7)

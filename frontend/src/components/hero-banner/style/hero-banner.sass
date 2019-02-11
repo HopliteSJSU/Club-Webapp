@@ -1,0 +1,50 @@
+section.hero
+  position: relative
+  min-height: 775px !important
+  height: 100vh
+  background: linear-gradient( rgba(0, 0, 0, 0.85), rgba(236, 111, 102, 0.5) ), url("http://sjsuhoplite.org:8080/images/sjsu-tower.jpg")
+  background-size: cover
+  background-attachment: fixed
+  overflow: hidden
+  .hero-body
+    .container
+      .container
+        margin: 0 0 3.5% 0
+        h1
+          color: white
+          margin-bottom: 3rem !important
+          &.mobile
+            font-size: 3.5rem !important
+          &.desktop
+            font-size: 5rem !important
+        h2
+          color: white
+          font-family: 'Inconsolata', monospace !important
+      .container:nth-child(2)
+        margin: 5% 0 3% 0
+  .hero-foot
+    .container
+      .columns
+        .column
+          font-family: 'Inconsolata', monospace !important
+          color: white
+          justify-content: center
+          margin-bottom: 3rem
+          &.mobile
+            font-size: 1.5rem
+          &.desktop
+            font-size: 1.75rem
+          a
+            font-weight: bold
+            padding-left: 7px
+            text-shadow: 1px 2px 1px black
+          a:hover
+            color: unset
+            text-decoration: underline
+
+#cursor
+  animation: blinker 1.2s linear infinite !important
+
+@keyframes blinker
+  50%
+    opacity: 0

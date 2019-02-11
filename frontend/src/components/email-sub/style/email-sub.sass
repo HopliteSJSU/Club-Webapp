@@ -1,0 +1,115 @@
+$input-background: rgba(0, 0, 0, .5)
+
+div.container#email-sub
+  display: inline-flex
+  justify-content: center
+  width: 100%
+  transition: margin-top 0.3s ease
+  &.mobile
+    margin-top: 20% !important
+  div.container#input-container
+    margin: 0px !important
+    display: inline-flex
+    justify-content: center
+    width: 100%
+    div.container.for-animation
+      margin: 0px !important
+      display: inline-flex
+      justify-content: center
+      transition: width 0.5s ease
+      &.hide
+        opacity: 0
+        width: 0% !important
+      &.show
+        opacity: 1
+        &.mobile
+          width: 95% !important
+        &.desktop
+          width: 50% !important
+      &:after
+        content: ""
+        position: absolute
+        left: 0px
+        right: 0px
+        bottom: 0px
+        z-index: 999
+        height: 2px
+        border-bottom-left-radius: 2px
+        border-bottom-right-radius: 2px
+        background-position: 0% 0%
+        background: linear-gradient(to right, #B294FF, #57E6E6, #FEFFB8, #57E6E6, #B294FF, #57E6E6)
+        background-size: 500% auto
+        animation: gradient 3s linear infinite
+      span.icon
+        font-size: 1.3rem
+        color: white
+        position: absolute
+        top: 25%
+        transition: opacity 0.20s ease
+        transition-delay: 0.40s
+        &.hide
+          opacity: 0
+        &.show
+          opacity: 1
+      #success-check
+        right: 3%
+        color: $green
+      #arrow-submit
+        cursor: pointer
+        right: 3%
+        &:hover
+          color: $blue
+      #email-icon
+        left: 3%
+        &.success
+          color: $green
+      input#email-input
+        font-size: 1rem
+        color: white
+        height: 50px
+        border: none
+        width: 100%
+        background-color: $input-background
+        text-decoration: none !important
+        &.mobile
+          padding-left: 13.5%
+          padding-right: 12%
+        &.desktop
+          padding-left: 9%
+          padding-right: 9%
+        &::placeholder
+          color: rgba(255,255,255, 0.7)
+          padding-left: 5px
+        &:focus
+          border: none
+          outline: none
+          box-shadow: none
+          background-color: $input-background
+          color: white
+
+div.container.for-animation
+    &.invalid-email
+      &:after
+        height: 0px !important
+        z-index: -99 !important
+      .input:focus
+        border: 2px solid rgba(255,255,0,0.8) !important
+      #email-icon
+        color: $yellow !important
+
+    &.error-email
+      &:after
+        height: 0px !important
+        z-index: -99 !important
+      .input:focus
+        border: 2px solid rgba(255,0,0,0.8) !important
+      #email-icon
+        color: $red !important
+
+
+
+@keyframes gradient
+  0%
+    background-position: 0
+  100%
+    background-position: 100%

@@ -1,0 +1,38 @@
+button.button
+  outline: none
+  overflow: hidden
+  border: 2px solid white
+  color: white !important
+  min-width: 200px
+  min-height: 50px
+  background: linear-gradient(135deg, #6e8efb, #a777e3)
+  // background: linear-gradient(to right,#e59437,#fa544b)
+  transition: box-shadow 0.3s cubic-bezier(.25,.8,.25,1), transform 0.2s ease
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)
+  border-radius: 4px !important
+  font-weight: bold
+  letter-spacing: 0.8px
+  &:hover
+    border: 2px solid white
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)
+    transform: translate(0px, -3px) scale(1.03)
+  &#animated-btn
+    span
+    	display: inline-block
+    	transition: all 0.5s
+    &:before
+      content: "\"hello world.\""
+      position: absolute
+      left: -100%
+      transition: all 0.5s
+    &:hover:before
+    	left: 22.5%
+    &:hover span
+        transform: translateX(300%)
+
+button.button:focus
+  text-decoration: none !important
+  outline: none !important
+  border-color: white !important
+  tap-highlight-color: rgba(0, 0, 0, 0) !important
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important
