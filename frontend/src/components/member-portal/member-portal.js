@@ -2,20 +2,25 @@ import React from "react";
 
 import Button from "components/button/button";
 import CheckIn from "components/check-in/check-in";
+import Register from "components/register/register";
 
 let applyLink = "https://goo.gl/forms/1KcEXaY9r4dA2mGi1";
 
 class MemberPortal extends React.Component {
   state = {
     showDefault: true,
-    showCheckIn: false
+    showCheckIn: false,
+    showRegister: false
   };
 
   handleCheckIn = () =>
     this.setState({ showCheckIn: true, showDefault: false });
 
+  handleRegister = () =>
+    this.setState({ showRegister: true, showDefault: false });
+
   render() {
-    const { showDefault, showCheckIn } = this.state;
+    const { showDefault, showCheckIn, showRegister } = this.state;
 
     return (
       <div className="modal is-active">
@@ -37,10 +42,15 @@ class MemberPortal extends React.Component {
                     label="Meeting Check-In"
                     clicked={this.handleCheckIn}
                   />
+                  <Button
+                    label="Register Now"
+                    clicked={this.handleRegister}
+                  />
                 </div>
               </React.Fragment>
             )}
             {showCheckIn && <CheckIn />}
+            {showRegister && <Register />}
           </section>
         </div>
       </div>
