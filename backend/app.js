@@ -16,6 +16,7 @@ require('dotenv').config();
  * Route Handler
  */
 let { mailchimp, checkIn }     = require('./routes/index.js');
+let database                   = require('./config/database');
 
 /**
  * Create Express server.
@@ -38,6 +39,11 @@ app.use(session({
   maxAge: 60000
 }));
 app.use(cors());
+
+/**
+ * Connect to MongoDB
+ */
+mongoose.connect(database.url, { useNewUrlParser: true });
 
 /**
  * Primary app routes.
