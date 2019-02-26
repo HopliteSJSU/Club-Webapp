@@ -1,6 +1,7 @@
 /**
  * Modudle for authentication related actions
  */
+import axios from "axios";
 
 import { LOGIN, REGISTER } from "redux/actions/types";
 
@@ -36,6 +37,8 @@ export const register = ({ email, password, name }) => {
             })
             .then(res => {
                 if (res.data.success) {
+                    let { user, token } = res.data;
+                    
                     dispatch({
                         type: REGISTER,
                         payload: {
