@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import axios from "axios";
 import _ from "lodash";
 
 import Button from "components/button/button";
+import { register } from "redux/actions/auth";
 
 export default class Register extends Component {
     constructor(props) {
@@ -17,6 +17,7 @@ export default class Register extends Component {
         let email = this.emailInput.value.toLocaleLowerCase();
         let name = this.nameInput.value;
         let password = this.passwordInput.value;
+        register(email, password, name);
     };
 
     handleKeyPress = e => {
