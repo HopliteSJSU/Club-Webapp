@@ -11,9 +11,9 @@ export default class Register extends Component {
             email: "",
             name: "",
             password: "",
-            emailError: false,
-            nameError: false,
-            passwordError: false,
+            emailError: true,
+            nameError: true,
+            passwordError: true,
             registered: false
         };
 
@@ -26,14 +26,16 @@ export default class Register extends Component {
         if (registered) {
             alert("Oops! It looks like you have already registered.");
         } else if (emailError) {
-            alert("Please enter a valid email.");
+            alert("Please enter a valid SJSU email.");
         } else if (nameError) {
-            alert("Please enter a valid name.");
+            alert("Please enter your name.");
         } else if (passwordError) {
             alert("Please enter a valid password that contains at least 8 characters including 1 special character.");
         } else if (email && password && name) {
             register(email, password, name);
-            this.setState({ registered: true });
+            this.setState({
+                registered: true
+            });
             alert("Great! You have successfully registered to become a member of Hoplite.");
         }
     }
@@ -45,35 +47,29 @@ export default class Register extends Component {
     }
 
     handleEmailChange = e => {
-        let emailInput = e.target.value.toLowerCase();
-        this.setState({ email: emailInput }, () => { this.validateEmail() });
+        const emailInput = e.target.value.toLowerCase();
+        const regex = /.+@sjsu.edu/;  // Email must end in @sjsu.edu
+        this.setState({
+            email: emailInput,
+            emailError: regex.test(emailInput) ? false : true
+        });
     }
 
     handleNameChange = e => {
-        let nameInput = e.target.value;
-        this.setState({ name: nameInput }, () => { this.validateName() });
+        const nameInput = e.target.value;
+        this.setState({
+            name: nameInput,
+            nameError: nameInput ? false : true
+        });
     }
 
     handlePasswordChange = e => {
-        let passwordInput = e.target.value;
-        this.setState({ password: passwordInput }, () => { this.validatePassword() });
-    }
-
-    validateName = () => {
-        const { name } = this.state;
-        this.setState({ nameError: name.length < 1 ? true : false });
-    }
-
-    validateEmail = () => {
-        const { email } = this.state;
-        let regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        this.setState({ emailError: !regex.test(email) ? true : false });
-    }
-
-    validatePassword = () => {
-        const { password } = this.state;
-        let regex = /^[a-zA-Z0-9]*$/;
-        this.setState({ passwordError: (password.length < 8 || regex.test(password)) ? true : false });
+        const passwordInput = e.target.value;
+        const regex = /^[a-zA-Z0-9]*$/;  // Only contains alphanumeric characters (no special characters)
+        this.setState({
+            password: passwordInput,
+            passwordError: !regex.test(passwordInput) ? false : true
+        });
     }
 
     render() {
@@ -87,13 +83,11 @@ export default class Register extends Component {
                         <input
                             name="email"
                             className="input is-rounded is-medium"
-                            type="text"
+                            type="email"
                             placeholder="SJSU Email"
                             value={this.state.email}
                             onChange={this.handleEmailChange}
                             onKeyPress={this.handleKeyPress}
-                            onBlur={this.validateEmail}
-                            onFocus={this.scrollView}
                             autoComplete="off"
                         />
                     </div>
@@ -107,7 +101,6 @@ export default class Register extends Component {
                             value={this.state.name}
                             onChange={this.handleNameChange}
                             onKeyPress={this.handleKeyPress}
-                            onBlur={this.validateName}
                             autoComplete="off"
                         />
                     </div>
@@ -118,10 +111,10 @@ export default class Register extends Component {
                             className="input is-rounded is-medium"
                             type="password"
                             placeholder="Enter Password"
+                            minLength="8"
                             value={this.state.password}
                             onChange={this.handlePasswordChange}
                             onKeyPress={this.handleKeyPress}
-                            onBlur={this.validatePassword}
                             autoComplete="off"
                         />
                     </div>
