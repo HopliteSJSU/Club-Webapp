@@ -1,0 +1,23 @@
+{
+  "name": "Club-Webapp",
+  "version": "1.0.0",
+  "description": "Hoplite website v2.1 presented by Hoplite's Snowball team",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HopliteSJSU/Club-Webapp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HopliteSJSU/Club-Webapp/issues"
+  },
+  "homepage": "https://github.com/HopliteSJSU/Club-Webapp#readme",
+  "dependencies": {
+    "mongodb": "^3.1.13"
+  }
+}
