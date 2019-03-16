@@ -15,14 +15,21 @@
     "concurrently": "^4.0.1",
     "cors": "^2.8.4",
     "dotenv": "^6.1.0",
+    "email-validator": "^2.0.4",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
+    "express-validator": "^5.3.1",
     "googleapis": "^27.0.0",
+    "jsonwebtoken": "^8.5.0",
     "mailchimp-api-v3": "^1.12.1",
     "mongoose": "^5.4.15",
     "nodemon": "^1.18.4",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
     "pg": "^7.7.1",
     "request": "^2.88.0",
-    "request-promise": "^4.2.2"
+    "request-promise": "^4.2.2",
+    "validator": "^10.11.0"
   }
 }
