@@ -3,17 +3,18 @@ import React from "react";
 import Button from "components/button/button";
 import CheckIn from "components/check-in/check-in";
 import Login from "components/log-in/log-in";
+
 let applyLink = "https://goo.gl/forms/1KcEXaY9r4dA2mGi1";
 
 class MemberPortal extends React.Component {
   state = {
     showDefault: true,
     showCheckIn: false,
-    showLogin:false
+    showLogin: false
   };
 
-  handleLogin = () => 
-    this.setState({ showLogin:true, showDefault:false});
+  handleLogin = () =>
+    this.setState({ showLogin: true, showDefault: false });
 
   handleCheckIn = () =>
     this.setState({ showCheckIn: true, showDefault: false });
@@ -41,12 +42,15 @@ class MemberPortal extends React.Component {
                     label="Meeting Check-In"
                     clicked={this.handleCheckIn}
                   />
-                  <Button label="Member Log-in" clicked = {this.handleLogin}/>
+                  <Button
+                    label="Member Log-in"
+                    clicked={this.handleLogin}
+                  />
                 </div>
               </React.Fragment>
             )}
             {showCheckIn && <CheckIn />}
-            {showLogin && <Login/>}
+            {showLogin && <Login />}
           </section>
         </div>
       </div>

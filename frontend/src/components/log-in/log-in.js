@@ -3,14 +3,25 @@ import axios from "axios";
 import _ from "lodash";
 
 import Button from "components/button/button";
+import Register from "components/register/register";
 
 export default class Login extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      showDefault: true,
+      showRegister: false
+    };
 
     this.handleSubmit = _.debounce(this.handleSubmit.bind(this), 500);
+  }
+
+  handleRegister = () => {
+    this.setState({
+      showRegister: true,
+      showDefault: false
+    });
   }
 
   handleSubmit = () => {
@@ -54,42 +65,55 @@ export default class Login extends Component {
   };
 
   render() {
+    const { showDefault, showRegister } = this.state;
+
     return (
       <div className="container check-in">
         <br />
         <div className="field">
           <div className="control">
-            <label>Please enter SJSU email</label>
-            <input
-              name="email"
-              className="input is-rounded is-medium"
-              type="email"
-              placeholder="SJSU Email"
-              onKeyPress={this.handleKeyPress}
-              ref={node => (this.emailInput = node)}
-              autoComplete="off"
-              onFocus={this.scrollView}
-            />
-          </div>
-          <div className="control">
-            <label>Please enter your password</label>
-            <input
-              name="code"
-              className="input is-rounded is-medium"
-              type="password"
-              placeholder="Enter Code"
-              onKeyPress={this.handleKeyPress}
-              ref={node => (this.passwordInput = node)}
-              autoComplete="off"
-            />
-            <a onClick={this.handleForgotPassword}>Forgot Password?</a>
-          </div>
-          <div className="container is-flex actions">
-            <Button
-              className="submit-button"
-              label="Login"
-              clicked={this.handleSubmit}
-            />
+            <section className="modal-card-body">
+              {showDefault && (
+                <React.Fragment>
+                  <label>Please enter SJSU email</label>
+                  <input
+                    name="email"
+                    className="input is-rounded is-medium"
+                    type="email"
+                    placeholder="SJSU Email"
+                    onKeyPress={this.handleKeyPress}
+                    ref={node => (this.emailInput = node)}
+                    autoComplete="off"
+                    onFocus={this.scrollView}
+                  />
+                  <div className="control">
+                    <label>Please enter your password</label>
+                    <input
+                      name="code"
+                      className="input is-rounded is-medium"
+                      type="password"
+                      placeholder="Enter Code"
+                      onKeyPress={this.handleKeyPress}
+                      ref={node => (this.passwordInput = node)}
+                      autoComplete="off"
+                    />
+                    <a onClick={this.handleForgotPassword}>Forgot Password?</a>
+                  </div>
+                  <div className="container is-flex actions">
+                    <Button
+                      className="submit-button"
+                      label="Login"
+                      clicked={this.handleSubmit}
+                    />
+                    <Button
+                      label="Register"
+                      clicked={this.handleRegister}
+                    />
+                  </div>
+                </React.Fragment>
+              )}
+              {showRegister && <Register />}
+            </section>
           </div>
         </div>
       </div>
