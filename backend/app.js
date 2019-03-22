@@ -1,12 +1,12 @@
 /**
  * Module dependencies.
  */
-const express         = require("express"),
-      mongoose        = require("mongoose"),
-      bodyParser      = require("body-parser"),
-      session         = require('express-session'),
-      cors            = require("cors"),
-      passport        = require("passport");
+const express = require("express"),
+  mongoose = require("mongoose"),
+  bodyParser = require("body-parser"),
+  session = require('express-session'),
+  cors = require("cors"),
+  passport = require("passport");
 
 /**
  * Dotenv evironment variables
@@ -16,9 +16,10 @@ require('dotenv').config();
 /**
  * Route Handler
  */
-let { mailchimp, checkIn }     = require('./routes/index.js');
-const config                   = require('./config/database'); 
-const users                    = require('./routes/users');
+let { mailchimp, checkIn } = require('./routes/index.js');
+const media = require('./routes/media');
+const config = require('./config/database');
+const users = require('./routes/users');
 
 /**
  * Create Express server.
@@ -50,11 +51,11 @@ mongoose.connect(config.database);
 /**
  * Check for MongoDB connection and error
  */
-mongoose.connection.on('connected', () =>{
-  console.log('Connected to database '+ config.database);
+mongoose.connection.on('connected', () => {
+  console.log('Connected to database ' + config.database);
 })
-mongoose.connection.on('error', (err) =>{
-  console.log('Database error: '+ err);
+mongoose.connection.on('error', (err) => {
+  console.log('Database error: ' + err);
 })
 
 /**
@@ -69,6 +70,7 @@ require('./config/passport')(passport);
  */
 app.use(mailchimp);
 app.use(checkIn);
+app.use(media);
 app.use('/users', users);
 
 app.get('*', (req, res) => {
@@ -79,6 +81,6 @@ app.get('*', (req, res) => {
  * Start Express server.
  */
 let PORT = process.env.PORT || 8080;
-app.listen(PORT, function() {
-  console.log("NODE server listening on port " +  PORT);
+app.listen(PORT, function () {
+  console.log("NODE server listening on port " + PORT);
 });
