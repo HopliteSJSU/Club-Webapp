@@ -1,6 +1,6 @@
-import AWS from 'aws-sdk';
-import express from 'express';
-import keys from '../config/keys';
+const AWS = require('aws-sdk');
+const express = require('express');
+const keys = require('../config/keys');
 
 const router = express.Router();
 
@@ -56,4 +56,4 @@ router.get('/api/files', (req, res) => {
     }
 });
 
-export default router;
+module.exports = router;
