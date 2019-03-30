@@ -32,10 +32,10 @@ const getFileType = (fileName) => {
 
 router.post('/api/update/files', (req, res) => {
     const fileName = req.body.file;
-    const fileType = getFileType(fileName);
     const userID = req.body.userID;
 
     if (isValidFileType(fileName)) {
+        const fileType = getFileType(fileName);
         s3.upload({
             Bucket: keys.bucket,
             Key: userID + '-' + fileType,
