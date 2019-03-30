@@ -15,27 +15,24 @@ const supportedFileTypes = {
     resume: ['pdf', 'docx', 'doc']
 };
 
-const isValidFileType = (fileName) => {
-    const fileType = fileName.split('.').pop();
-    return (supportedFileTypes.picture.includes(fileType) || supportedFileTypes.resume.includes(fileType));
-};
-
 const getFileType = (fileName) => {
-    const fileType = fileName.split('.').pop();
+    const fileExtension = fileName.split('.').pop();
 
-    if (supportedFileTypes.picture.includes(fileType)) {
+    if (supportedFileTypes.picture.includes(fileExtension)) {
         return 'picture';
-    } else if (supportedFileTypes.resume.includes(fileType)) {
+    } else if (supportedFileTypes.resume.includes(fileExtension)) {
         return 'resume';
     }
+
+    return false;
 };
 
 router.post('/api/update/files', (req, res) => {
     const fileName = req.body.file;
     const userID = req.body.userID;
+    const fileType = getFileType(fileName);
 
-    if (isValidFileType(fileName)) {
-        const fileType = getFileType(fileName);
+    if (fileType) {
         s3.upload({
             Bucket: keys.bucket,
             Key: userID + '-' + fileType,
