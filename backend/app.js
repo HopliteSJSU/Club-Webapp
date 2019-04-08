@@ -19,6 +19,7 @@ require('dotenv').config();
 let { mailchimp, checkIn }     = require('./routes/index.js');
 const config                   = require('./config/database'); 
 const users                    = require('./routes/users');
+const googlesheet              = require('./routes/google-sheet');
 
 /**
  * Create Express server.
@@ -70,6 +71,12 @@ require('./config/passport')(passport);
 app.use(mailchimp);
 app.use(checkIn);
 app.use('/users', users);
+
+/**
+ * Run this to scrape member information from Google Sheet API
+ * into database. Comment it out after done scraping.
+ */ 
+app.use('/googlesheet', googlesheet);
 
 app.get('*', (req, res) => {
   res.redirect('http://localhost:3000/');
