@@ -73,7 +73,7 @@ app.use(checkIn);
 app.use('/users', users);
 app.use('/googlesheet', googlesheet);
 
-app.get('/ggsheet', (req, res) => {
+app.get('*', (req, res) => {
   res.redirect('http://localhost:3000/');
 })
 
