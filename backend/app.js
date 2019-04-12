@@ -71,14 +71,9 @@ require('./config/passport')(passport);
 app.use(mailchimp);
 app.use(checkIn);
 app.use('/users', users);
-
-/**
- * Run this to scrape member information from Google Sheet API
- * into database. Comment it out after done scraping.
- */ 
 app.use('/googlesheet', googlesheet);
 
-app.get('*', (req, res) => {
+app.get('/ggsheet', (req, res) => {
   res.redirect('http://localhost:3000/');
 })
 
