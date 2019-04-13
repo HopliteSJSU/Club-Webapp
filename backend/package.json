@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js",
-    "initial-dev": "npm install && nodemon app.js"
+    "dev": "nodemon --watch .",
+    "initial-dev": "npm install && nodemon --watch ."
   },
   "dependencies": {
     "aws-sdk": "^2.336.0",
