@@ -1,5 +1,5 @@
 /**
- * Module for adding Recruiter profile to database
+ * Module for adding Recruiter's profile to database
  */
 const mongoose = require('mongoose'),
       bcrypt   = require('bcryptjs'),
@@ -21,7 +21,7 @@ const UserSchema = mongoose.Schema({
     }
 })
 
-const User = module.exports = mongoose.model ('User', UserSchema);
+const User = module.exports = mongoose.model ('User', UserSchema, 'user');
 
 /**
  * Get user by ID
