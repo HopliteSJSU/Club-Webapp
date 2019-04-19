@@ -22,7 +22,7 @@ router.get('/retrieve/memberinfo', function(req, res) {
       valueRenderOption: 'FORMATTED_VALUE',
       majorDimension: 'ROWS',
       auth: authClient,
-      key: API_KEY
+      key: API_KEY 
     };
 
     sheets.spreadsheets.values.get(request, function(err, response) {
