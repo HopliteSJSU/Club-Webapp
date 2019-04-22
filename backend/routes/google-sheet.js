@@ -5,9 +5,11 @@ const express         = require('express'),
       router          = express.Router(),
       {google}        = require('googleapis'),
       sheets          = google.sheets('v4'),
-      Member          = require('../models/member'),
-      SPREADSHEET_ID  = '1Wq5tih_d-AM1dTFGfTYxUGNJqg9COvzbeC5c7CB-n-c';
-      
+      Member          = require('../models/member');
+ 
+const { SPREADSHEET_ID_2 } = require('../config/keys');
+const { API_KEY }          = require('../config/keys');
+
 /**
  * Retrieve Members' information from Google Sheets API and 
  * put into database
@@ -15,12 +17,12 @@ const express         = require('express'),
 router.get('/retrieve/memberinfo', function(req, res) { 
   authorize(function(authClient) {
     var request = {
-      spreadsheetId: SPREADSHEET_ID,
+      spreadsheetId: SPREADSHEET_ID_2,
       range: "Form Responses 1!B2:N98",
       valueRenderOption: 'FORMATTED_VALUE',
       majorDimension: 'ROWS',
       auth: authClient,
-      key: 'AIzaSyAv2iy_RogTqo8mHcgZV4cdOwq51vClekg' //API key
+      key: API_KEY 
     };
 
     sheets.spreadsheets.values.get(request, function(err, response) {
