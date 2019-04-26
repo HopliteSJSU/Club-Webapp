@@ -18,7 +18,7 @@ require('dotenv').config();
  */
 let { mailchimp, checkIn }     = require('./routes/index.js');
 const config                   = require('./config/database'); 
-const users                    = require('./routes/users');
+const recruiters               = require('./routes/recruiters');
 const googlesheet              = require('./routes/google-sheet');
 
 /**
@@ -70,7 +70,7 @@ require('./config/passport')(passport);
  */
 app.use(mailchimp);
 app.use(checkIn);
-app.use('/users', users);
+app.use('/recruiters', recruiters);
 app.use('/googlesheet', googlesheet);
 
 app.get('*', (req, res) => {
