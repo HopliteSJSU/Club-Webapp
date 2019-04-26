@@ -74,7 +74,6 @@ app.use(mailchimp);
 app.use(checkIn);
 app.use('/recruiters', recruiters);
 app.use(media);
-app.use('/users', users);
 app.use('/googlesheet', googlesheet);
 
 app.get('*', (req, res) => {

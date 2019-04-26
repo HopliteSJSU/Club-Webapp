@@ -5,12 +5,7 @@ const mongoose = require('mongoose'),
       bcrypt   = require('bcryptjs'),
       config   = require('../config/database'); 
 
-//User Schema
-
-import mongoose from 'mongoose';
-import bcrypt from 'bcryptjs';
-import config from '../config/database';
-
+//Recruiter Schema
 const RecruiterSchema = mongoose.Schema({
     name: {
         type: String,
@@ -68,26 +63,6 @@ module.exports.comparePassword = function (candidatePassword, hash, callback) {
     bcrypt.compare(candidatePassword, hash, (err, isMatch) => {
         if (err) throw err;
         callback(null, isMatch);
-    });
-}
-
-const Recruiter = mongoose.model('Recruiter', RecruiterSchema);
-
-Recruiter.getRecruiterByName = (name, callback) => {
-    const query = { name: name };
-    Recruiter.findOne(query, callback);
-}
-
-Recruiter.getRecruiterByEmail = (email, callback) => {
-    const query = { email: email };
-    Recruiter.findOne(query, callback);
-}
-
-Recruiter.addRecruiter = (newRecruiter, callback) => {
-    bcrypt.hash(newRecruiter.password, 10, (err, hash) => {
-        if (err) throw err;
-        newRecruiter.password = hash;
-        newRecruiter.save(callback);
     });
 }
 
