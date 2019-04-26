@@ -5,12 +5,6 @@ const mongoose = require('mongoose'),
       bcrypt   = require('bcryptjs'),
       config   = require('../config/database'); 
 
-//User Schema
-
-import mongoose from 'mongoose';
-import bcrypt from 'bcryptjs';
-import config from '../config/database';
-
 const RecruiterSchema = mongoose.Schema({
     name: {
         type: String,
