@@ -65,8 +65,6 @@ module.exports.comparePassword = function (candidatePassword, hash, callback) {
     });
 }
 
-const Recruiter = mongoose.model('Recruiter', RecruiterSchema);
-
 Recruiter.getRecruiterByName = (name, callback) => {
     const query = { name: name };
     Recruiter.findOne(query, callback);
