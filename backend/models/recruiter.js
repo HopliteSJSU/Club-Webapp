@@ -82,4 +82,3 @@ Recruiter.addRecruiter = (newRecruiter, callback) => {
         newRecruiter.save(callback);
     });
 }
-
