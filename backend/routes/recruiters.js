@@ -7,7 +7,8 @@ const express   = require('express'),
       jwt       = require('jsonwebtoken'),
       config    = require('../config/database');
 
-const User = require('../models/user');
+const Recruiter = require('../models/recruiter');
+const { RECRUITER_SIGNUP_CODE } = require('../config/keys');
 
 //Validate email and password
 const { check, validationResult } = require("express-validator/check");
@@ -25,19 +26,25 @@ router.post('/register', [
         return res.status(422).json({ errors: errors.array() });
     }
 
-    let newUser = new User({
+    let newRecruiter = new Recruiter({
         name: req.body.name,
         email: req.body.email,
         password: req.body.password
     });
 
-    User.addUser(newUser, (err, user) =>{
-        if (err){
-            res.json({success: false, msg: 'Failed to register user'})
-        } else {
-            res.json({success: true, msg: 'User registered'});
-        }
-    })
+    var signupCode = req.body.signupCode;
+
+    if (signupCode != RECRUITER_SIGNUP_CODE) {
+        res.json({success: false, msg: 'Invalid Verification Code'})
+    } else {
+        Recruiter.addRecruiter(newRecruiter, (err, recruiter) =>{
+            if (err){
+                res.json({success: false, msg: 'Failed to register recruiter'})
+            } else {
+                res.json({success: true, msg: 'Recruiter registered'});
+            }
+        })
+    } 
 });
 
 /**
@@ -55,17 +62,17 @@ router.post('/authenticate', [
     const email    = req.body.email;
     const password = req.body.password;
 
-    User.getUserByEmail (email, (err, user) => {
+    User.getRecruiterByEmail (email, (err, recruiter) => {
         if (err) throw err;
         if (!user){
             return res.json({success: false, msg: 'User not found'})
         }
 
         //If User exists, check for password
-        User.comparePassword(password, user.password, (err, isMatch) => { 
+        Recruiter.comparePassword(password, recruiter.password, (err, isMatch) => { 
             if (err) throw err;
             if (isMatch){
-                const token = jwt.sign(user.toJSON(), config.secret, {
+                const token = jwt.sign(recruiter.toJSON(), config.secret, {
                     expiresIn: 604800 // 1 week
                 });
                 
@@ -74,9 +81,9 @@ router.post('/authenticate', [
                 success: true,
                 token: 'JWT ' + token,
                 user: {
-                    id: user.id,
-                    name: user.name,
-                    email: user.email 
+                    id: recruiter.id,
+                    name: recruiter.name,
+                    email: recruiter.email 
                 }
             });
             } else {

@@ -20,7 +20,7 @@ require('dotenv').config();
 let { mailchimp, checkIn }     = require('./routes/index.js');
 const media                    = require('./routes/media');
 const config                   = require('./config/database'); 
-const users                    = require('./routes/users');
+const recruiters               = require('./routes/recruiters');
 const googlesheet              = require('./routes/google-sheet');
 
 /**
@@ -72,6 +72,7 @@ require('./config/passport')(passport);
  */
 app.use(mailchimp);
 app.use(checkIn);
+app.use('/recruiters', recruiters);
 app.use(media);
 app.use('/users', users);
 app.use('/googlesheet', googlesheet);
