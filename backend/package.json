@@ -26,11 +26,13 @@
     "mongoose": "^5.4.15",
     "nodemon": "^1.18.4",
     "passport": "^0.4.0",
+    "passport-google-plus-token": "^2.1.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "pg": "^7.7.1",
     "request": "^2.88.0",
     "request-promise": "^4.2.2",
+    "uuid": "^3.3.2",
     "validator": "^10.11.0"
   }
 }

@@ -6,7 +6,6 @@ const express   = require('express'),
       passport  = require('passport'),
       jwt       = require('jsonwebtoken'),
       config    = require('../config/database');
-
 const User = require('../models/user');
 
 //Validate email and password
@@ -94,4 +93,5 @@ router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res,
     res.json({user: req.user});
 });
 
+router.post('/oauth/google', passport.authenticate('googleToken', {session:false}))
 module.exports = router;

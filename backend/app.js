@@ -6,7 +6,8 @@ const express = require("express"),
   bodyParser = require("body-parser"),
   session = require('express-session'),
   cors = require("cors"),
-  passport = require("passport");
+  passport = require("passport"),
+  GooglePlusTokenStrategy = require('passport-google-plus-token');
 
 /**
  * Dotenv evironment variables
@@ -67,6 +68,25 @@ app.use(passport.initialize());
 app.use(passport.session());
 require('./config/passport')(passport);
 
+passport.use('googleToken',new GooglePlusTokenStrategy({
+  clientID:'129086773964-42vg3lj1qos4j24nc31nv1mfj34s7m20.apps.googleusercontent.com',
+  clientSecret:'0nmNPu6opdmlkc8hKKxF2BCH'
+}, async(accessToken, refreshToken, profile, done)=>{
+  if(profile.emails[0].value.split("@").pop() === 'sjsu.edu'){
+    done(null, profile)
+  }
+  console.log(accessToken, refreshToken, profile)
+}))
+
+// Func to verify if user is authenitcated or not. 
+function isUserAuthenticated(req, res, next) {
+  if (req.user) {
+      next();
+  } else {
+      res.send('You must login!');
+  }
+}
+
 /**
  * Primary app routes.
  */
@@ -76,9 +96,29 @@ app.use(media);
 app.use('/users', users);
 app.use('/googlesheet', googlesheet);
 
+app.get('/auth/google', passport.authenticate('google', {
+  // Required permissions
+  scope: ['profile']
+}));
+
+app.get('/auth/google/callback', passport.authenticate('google'), (req, res) => {
+  res.redirect('/secret');
+});
+// Restricted route for authenticated users
+app.get('/upload', isUserAuthenticated, (req, res)=> {
+  // Insert logic for resume upload, bio update etc. 
+})
+
+// Route to logout 
+app.get('/logout', (req, res)=> {
+  req.logout();
+  res.redirect('/')
+})
+
 app.get('*', (req, res) => {
   res.redirect('http://localhost:3000/');
 })
+
 
 /**
  * Start Express server.
