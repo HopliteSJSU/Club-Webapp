@@ -17,11 +17,12 @@ require('dotenv').config();
  * Route Handler
  */
 
-let { mailchimp, checkIn }     = require('./routes/index.js');
-const media                    = require('./routes/media');
-const config                   = require('./config/database'); 
-const recruiters               = require('./routes/recruiters');
-const googlesheet              = require('./routes/google-sheet');
+let { mailchimp, checkIn } = require('./routes/index.js');
+const media = require('./routes/media');
+const config = require('./config/database');
+const recruiters = require('./routes/recruiters');
+const googlesheet = require('./routes/google-sheet');
+const members = require('./routes/retrieve-members');
 
 /**
  * Create Express server.
@@ -75,6 +76,7 @@ app.use(checkIn);
 app.use('/recruiters', recruiters);
 app.use(media);
 app.use('/googlesheet', googlesheet);
+app.use(members);
 
 app.get('*', (req, res) => {
   res.redirect('http://localhost:3000/');
@@ -85,6 +87,6 @@ app.get('*', (req, res) => {
  */
 let PORT = process.env.PORT || 8080;
 
-app.listen(PORT, function() {
-  console.log("NODE server listening on port " +  PORT);
+app.listen(PORT, function () {
+  console.log("NODE server listening on port " + PORT);
 });
