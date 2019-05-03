@@ -24,6 +24,7 @@
     "jsonwebtoken": "^8.5.0",
     "mailchimp-api-v3": "^1.12.1",
     "mongoose": "^5.4.15",
+    "multiparty": "^4.2.1",
     "nodemon": "^1.18.4",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
