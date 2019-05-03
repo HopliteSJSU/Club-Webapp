@@ -28,15 +28,15 @@ class RecruiterDashboard extends Component {
 
     componentDidMount = () => {
         axios
-            .get('/retrieve/members')
+            .get('http://localhost:8080/retrieve/members')
             .then(response => {
-                this.setState({ members: response });
+                this.setState({ members: response.data });
+                console.log(this.state.members);
             })
             .catch(error => {
                 console.log('Error retrieving members from database.');
                 console.log(error);
             });
-        console.log(this.state.members);
         this.setState({ queriedMembers: this.state.members });
     }
 
