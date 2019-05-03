@@ -9,6 +9,7 @@ const express   = require('express'),
 
 const Recruiter = require('../models/recruiter');
 const { RECRUITER_SIGNUP_CODE } = require('../config/keys');
+// const User = require('../models/user');
 
 //Validate email and password
 const { check, validationResult } = require("express-validator/check");
@@ -101,4 +102,5 @@ router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res,
     res.json({user: req.user});
 });
 
+router.post('/oauth/google', passport.authenticate('googleToken', {session:false}))
 module.exports = router;
