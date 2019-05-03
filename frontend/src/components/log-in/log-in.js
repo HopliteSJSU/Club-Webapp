@@ -26,7 +26,7 @@ export default class Login extends Component {
     });
   }
     
-  handleSubmit = () => {
+  handleSubmit = (res) => {
     this.setState({
       showRecruiterDashboard: true,
       showRegister: false
@@ -57,8 +57,7 @@ export default class Login extends Component {
         )
           alert(err.response.data.msg);
         else alert("Check your login information, and try again");
-      });
-      
+      });   
   };
   
   handleKeyPress = e => {
