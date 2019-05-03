@@ -12,6 +12,12 @@ const divStyle = {
     textAlign: 'center'
 }
 
+const imgStyle = {
+    width: '25px',
+    height: '25px',
+    border: '0'
+}
+
 class RecruiterDashboard extends Component {
     constructor(props) {
         super(props);
@@ -30,18 +36,23 @@ class RecruiterDashboard extends Component {
         axios
             .get('http://localhost:8080/retrieve/members')
             .then(response => {
-                this.setState({ members: response.data });
+                this.setState({
+                    members: response.data,
+                    queriedMembers: response.data
+                });
                 console.log(this.state.members);
             })
             .catch(error => {
                 console.log('Error retrieving members from database.');
                 console.log(error);
             });
-        this.setState({ queriedMembers: this.state.members });
     }
 
     handleChange = (e) => {
-        this.setState({ [e.target.name]: e.target.value });
+        this.setState({
+            [e.target.name]: e.target.value,
+            queriedMembers: this.state.members
+        });
     }
 
     searchUsers() {
@@ -49,25 +60,25 @@ class RecruiterDashboard extends Component {
 
         if (searchType === 'Name') {
             const filteredUsersByName = members.filter(member => {
-                return member.name.includes(searchValue);
+                return member.name.toLowerCase().includes(searchValue.toLowerCase());
             });
             this.setState({ queriedMembers: filteredUsersByName });
         }
         else if (searchType === 'Email') {
             const filteredUsersByEmail = members.filter(member => {
-                return member.email.inclues(searchValue);
+                return member.email.toLowerCase().includes(searchValue.toLowerCase());
             });
             this.setState({ queriedMembers: filteredUsersByEmail });
         }
         else if (searchType === 'Major') {
             const filteredUsersByMajor = members.filter(member => {
-                return member.major.includes(searchValue);
+                return member.major.toLowerCase().includes(searchValue.toLowerCase());
             });
             this.setState({ queriedMembers: filteredUsersByMajor });
         }
         else if (searchType === 'Graduation Date') {
             const filteredUsersByGraduationDate = members.filter(member => {
-                return member.expectedGraduation.includes(searchValue);
+                return member.expectedGraduation.toLowerCase().includes(searchValue.toLowerCase());
             });
             this.setState({ queriedMembers: filteredUsersByGraduationDate });
         }
@@ -81,9 +92,17 @@ class RecruiterDashboard extends Component {
                     <td>{member.email}</td>
                     <td>{member.major}</td>
                     <td>{member.expectedGraduation}</td>
-                    <td>{member.githubURL}</td>
-                    <td>{member.linkedInURL}</td>
-                </tr>
+                    <td>
+                        <a href={member.githubURL}>
+                            <img src="github.png" alt="GitHub" style={imgStyle}></img>
+                        </a>
+                    </td>
+                    <td>
+                        <a href={member.linkedInURL}>
+                            <img src="linkedIn.png" alt="LinkedIn" style={imgStyle}></img>
+                        </a>
+                    </td>
+                </tr >
             ))
         )
     }
@@ -113,7 +132,6 @@ class RecruiterDashboard extends Component {
                     <option>Name</option>
                     <option>Email</option>
                     <option>Major</option>
-                    <option>ClassStanding</option>
                     <option>GraduationDate</option>
                 </select>
 

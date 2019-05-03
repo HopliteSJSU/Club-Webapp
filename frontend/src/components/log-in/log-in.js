@@ -4,6 +4,7 @@ import _ from "lodash";
 
 import Button from "components/button/button";
 import Register from "components/register/register";
+import RecruiterDashboard from 'components/recruiter-dashboard/recruiter-dashboard';
 
 export default class Login extends Component {
   constructor(props) {
@@ -20,11 +21,16 @@ export default class Login extends Component {
   handleRegister = () => {
     this.setState({
       showRegister: true,
+      showRecruiterDashboard: false,
       showDefault: false
     });
   }
 
   handleSubmit = () => {
+    this.setState({
+      showRecruiterDashboard: true,
+      showRegister: false
+    });
     //Update the login endpoint and redirect component
     /*
     let path;
@@ -65,7 +71,7 @@ export default class Login extends Component {
   };
 
   render() {
-    const { showDefault, showRegister } = this.state;
+    const { showDefault, showRegister, showRecruiterDashboard } = this.state;
 
     return (
       <div className="container check-in">
@@ -113,6 +119,7 @@ export default class Login extends Component {
                 </React.Fragment>
               )}
               {showRegister && <Register />}
+              {showRecruiterDashboard && <RecruiterDashboard />}
             </section>
           </div>
         </div>
