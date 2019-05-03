@@ -9,7 +9,8 @@ import configureStore from "redux/configureStore";
 //Import all pages
 import FrontPage from "pages/front-page";
 import MemberPage from "pages/member-page";
-import AdminPage from "pages/admin-page"
+import AdminPage from "pages/admin-page";
+import RecruiterPage from "pages/recruiter-dashboard-page";
 
 class App extends Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class App extends Component {
     this.persistor = configureStore().persistor;
     this.store = configureStore().store;
   }
+
   render() {
     return (
       <Provider store={this.store}>
@@ -33,6 +35,7 @@ class App extends Component {
                   path="/admin/generate-code/:key"
                   component={AdminPage}
                 />
+                <Route path="/recruiters" exact component={RecruiterPage} />
               </React.Fragment>
             </BrowserRouter>
           </div>

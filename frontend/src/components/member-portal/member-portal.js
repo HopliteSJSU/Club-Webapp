@@ -5,6 +5,8 @@ import CheckIn from "components/check-in/check-in";
 import Login from "components/log-in/log-in";
 import Cookies from 'universal-cookie';
 
+
+
 let applyLink = "https://goo.gl/forms/1KcEXaY9r4dA2mGi1";
 
 class MemberPortal extends React.Component {
