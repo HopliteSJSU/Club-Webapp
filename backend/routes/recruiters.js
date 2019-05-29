@@ -101,4 +101,5 @@ router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res,
     res.json({user: req.user});
 });
 
+router.post('/oauth/google', passport.authenticate('googleToken', {session:false}))
 module.exports = router;

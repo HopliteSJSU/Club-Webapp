@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import axios from "axios";
 import _ from "lodash";
-
+import GoogleLogin from 'react-google-login';
+import axios from 'axios';
 import Button from "components/button/button";
 import Register from "components/register/register";
+import RecruiterDashboard from 'components/recruiter-dashboard/recruiter-dashboard';
 
 export default class Login extends Component {
   constructor(props) {
@@ -20,13 +21,17 @@ export default class Login extends Component {
   handleRegister = () => {
     this.setState({
       showRegister: true,
+      showRecruiterDashboard: false,
       showDefault: false
     });
   }
 
-  handleSubmit = () => {
-    //Update the login endpoint and redirect component
-    /*
+  handleSubmit = (res) => {
+    this.setState({
+      showRecruiterDashboard: true,
+      showRegister: false
+    });
+    
     let path;
     if (process.env.NODE_ENV === "production") {
       path = process.env.REACT_APP_BACKEND;
@@ -34,13 +39,13 @@ export default class Login extends Component {
       path = "http://localhost:8080";
     }
     axios
-      .post(path + "xyz", {
-        email: this.emailInput.value.toLowerCase(),
-        code: this.passwordInput.value.toLowerCase()
+      .post(path + "/auth/google", {
+        access_token: res.accessToken
       })
       .then(res => {
         if (res.data.success) {
           alert("Success! You are Logged in, thanks.");
+          localStorage.setItem('JWT_TOKEN', res.data.token)
           window.location.href = "";
         }
       })
@@ -53,19 +58,17 @@ export default class Login extends Component {
           alert(err.response.data.msg);
         else alert("Check your login information, and try again");
       });
-      */
+      
   };
-  handleForgotPassword = () => {
-    // add a call to forgot password endpoint
-  }
+  
   handleKeyPress = e => {
     if (e.key === "Enter") {
       this.handleSubmit();
     }
   };
-
+  
   render() {
-    const { showDefault, showRegister } = this.state;
+    const { showDefault, showRegister, showRecruiterDashboard } = this.state;
 
     return (
       <div className="container check-in">
@@ -75,44 +78,21 @@ export default class Login extends Component {
             <section className="modal-card-body">
               {showDefault && (
                 <React.Fragment>
-                  <label>Please enter SJSU email</label>
-                  <input
-                    name="email"
-                    className="input is-rounded is-medium"
-                    type="email"
-                    placeholder="SJSU Email"
-                    onKeyPress={this.handleKeyPress}
-                    ref={node => (this.emailInput = node)}
-                    autoComplete="off"
-                    onFocus={this.scrollView}
-                  />
-                  <div className="control">
-                    <label>Please enter your password</label>
-                    <input
-                      name="code"
-                      className="input is-rounded is-medium"
-                      type="password"
-                      placeholder="Enter Code"
-                      onKeyPress={this.handleKeyPress}
-                      ref={node => (this.passwordInput = node)}
-                      autoComplete="off"
-                    />
-                    <a onClick={this.handleForgotPassword}>Forgot Password?</a>
-                  </div>
-                  <div className="container is-flex actions">
-                    <Button
-                      className="submit-button"
-                      label="Login"
-                      clicked={this.handleSubmit}
-                    />
-                    <Button
-                      label="Register"
-                      clicked={this.handleRegister}
-                    />
-                  </div>
+                  <GoogleLogin
+    clientId="129086773964-42vg3lj1qos4j24nc31nv1mfj34s7m20.apps.googleusercontent.com"
+    render={renderProps => (
+      <button onClick={renderProps.onClick} disabled={renderProps.disabled}>Login with SJSU email</button>
+    )}
+    buttonText="Login"
+    onSuccess={this.handleSubmit}
+    onFailure={alert("Invalid Login, Please log in with an sjsu.edu email")}
+    cookiePolicy={'single_host_origin'}
+  />
+                  
                 </React.Fragment>
               )}
               {showRegister && <Register />}
+              {showRecruiterDashboard && <RecruiterDashboard />}
             </section>
           </div>
         </div>
