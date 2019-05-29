@@ -4,6 +4,7 @@ import GoogleLogin from 'react-google-login';
 import axios from 'axios';
 import Button from "components/button/button";
 import Register from "components/register/register";
+import RecruiterDashboard from 'components/recruiter-dashboard/recruiter-dashboard';
 
 export default class Login extends Component {
   constructor(props) {
@@ -20,11 +21,16 @@ export default class Login extends Component {
   handleRegister = () => {
     this.setState({
       showRegister: true,
+      showRecruiterDashboard: false,
       showDefault: false
     });
   }
 
   handleSubmit = (res) => {
+    this.setState({
+      showRecruiterDashboard: true,
+      showRegister: false
+    });
     
     let path;
     if (process.env.NODE_ENV === "production") {
@@ -62,7 +68,7 @@ export default class Login extends Component {
   };
   
   render() {
-    const { showDefault, showRegister } = this.state;
+    const { showDefault, showRegister, showRecruiterDashboard } = this.state;
 
     return (
       <div className="container check-in">
@@ -86,6 +92,7 @@ export default class Login extends Component {
                 </React.Fragment>
               )}
               {showRegister && <Register />}
+              {showRecruiterDashboard && <RecruiterDashboard />}
             </section>
           </div>
         </div>
