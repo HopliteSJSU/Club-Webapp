@@ -3,6 +3,7 @@ import GoogleLogin from 'react-google-login'
 import Button from "components/button/button";
 import CheckIn from "components/check-in/check-in";
 import Login from "components/log-in/log-in";
+import UploadScreen from './upload';
 import Cookies from 'universal-cookie';
 
 let applyLink = "https://goo.gl/forms/1KcEXaY9r4dA2mGi1";
@@ -11,7 +12,10 @@ class MemberPortal extends React.Component {
   state = {
     showDefault: true,
     showCheckIn: false,
-    showLogin: false
+    showLogin: false,
+    showUpload:false,
+    name:null,
+    email:null
   };
   responseGoogle = (res)=>{
     console.log(res)
@@ -27,6 +31,9 @@ class MemberPortal extends React.Component {
 
   handleLoginSuccess = (res) => {
     const email = res.profileObj.email
+    this.setState({email:email})
+    this.setState({name:res.profileObj.name}) 
+    console.log(res)
     if(email.split("@").pop() === 'sjsu.edu'){
       const accessToken = res.accessToken;
       const cookies = new Cookies();
@@ -34,6 +41,7 @@ class MemberPortal extends React.Component {
       cookies.remove('gToken')
       // Add access token to cookies for further use
       cookies.set('gToken', accessToken, { path: '/' });
+      this.setState({showUpload:true})
     }else{
       alert("Invalid email, Only sjsu.edu emails supported")
     }
@@ -56,8 +64,7 @@ class MemberPortal extends React.Component {
                 <h3 className="subtitle has-text-centered has-text-black">
                   Welcome to the members portal!
                 </h3>
-                <br />
-                <div className="container is-flex actions">
+                {(!this.state.showUpload) ? <div className="container is-flex actions">
                   <Button
                     label="Meeting Check-In"
                     clicked={this.handleCheckIn}
@@ -71,7 +78,7 @@ class MemberPortal extends React.Component {
       <button onClick={renderProps.onClick} disabled={renderProps.disabled} className="button">Member-login</button>
     )}
   />
-                </div>
+                </div> : <UploadScreen name={this.state.name} email={this.state.email}/>}
                 
               </React.Fragment>
             )}
